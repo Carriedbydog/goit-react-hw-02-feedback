@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyledBtn, StyledList } from './FeedBack.styled';
 
 export const FeedBack = ({ options, onLeaveFeedback }) => {
@@ -17,4 +18,9 @@ export const FeedBack = ({ options, onLeaveFeedback }) => {
       </StyledList>
     </div>
   );
+};
+
+FeedBack.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string),
+  onLeaveFeedback: PropTypes.func.isRequired,
 };
