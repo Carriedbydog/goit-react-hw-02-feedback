@@ -1,5 +1,7 @@
-import { FeedBack } from './FeedBack/FeedBack';
+import { FeedBack } from './FeedBack/FeedBackOptions';
 import React from 'react';
+import { Statistics } from './Statistics/Statistics';
+import { Section } from './Section/Section';
 
 export class App extends React.Component {
   state = {
@@ -7,7 +9,38 @@ export class App extends React.Component {
     neutral: 0,
     bad: 0,
   };
+
+  onLeaveFeedback = name => {
+    switch (name) {
+      case 'good':
+        this.setState(prev => ({ good: prev.good + 1 }));
+        break;
+
+      case 'neutral':
+        this.setState(prev => ({ neutral: prev.neutral + 1 }));
+        break;
+
+      case 'bad':
+        this.setState(prev => ({ bad: prev.bad + 1 }));
+        break;
+      default:
+        console.log('Invalid btn');
+    }
+  };
+  countTotalFeedback = () => {
+    return this.state.good + this.state.neutral + this.state.bad;
+  };
+  countPositiveFeedbackPercentage = () => {
+    const totalFeedBack = this.countTotalFeedback();
+    if (totalFeedBack === 0) {
+      return 0;
+    }
+    return Math.floor((this.state.good / totalFeedBack) * 100);
+  };
   render() {
+    const totalPositivePerc = this.countPositiveFeedbackPercentage();
+    const totalFeedback = this.countTotalFeedback();
+    const feedback = ['good', 'neutral', 'bad'];
     return (
       <div
         style={{
@@ -19,9 +52,23 @@ export class App extends React.Component {
           color: '#010101',
         }}
       >
-        <>
-          <FeedBack />
-        </>
+        <div>
+          <Section title="Please leave feedback">
+            <FeedBack
+              onLeaveFeedback={this.onLeaveFeedback}
+              options={feedback}
+            />
+          </Section>
+          <Section title='Statistics'>
+<Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={totalFeedback}
+            totalPositivePercentage={totalPositivePerc}
+          />
+          </Section>
+        </div>
       </div>
     );
   }
