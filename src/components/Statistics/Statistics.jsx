@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyledList } from './Statisctics.styled';
 
 export const Statistics = ({
   good,
@@ -9,7 +10,7 @@ export const Statistics = ({
 }) => {
   return (
     <div>
-      <ul>
+      <StyledList>
         <li>
           <p>Good:{good}</p>
         </li>
@@ -22,8 +23,10 @@ export const Statistics = ({
         <li>
           <p>Total:{total}</p>
         </li>
-        <li>Positive feedback:{positivePercentage}%</li>
-      </ul>
+        <li>
+          <p>Positive feedback:{positivePercentage}%</p>
+        </li>
+      </StyledList>
     </div>
   );
 };

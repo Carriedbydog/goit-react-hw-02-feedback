@@ -1,17 +1,20 @@
 import React from 'react';
+import { StyledBtn, StyledList } from './FeedBack.styled';
 
 export const FeedBack = ({ options, onLeaveFeedback }) => {
   return (
     <div>
-      <ul>
+      <StyledList>
         {options.map(option => {
           return (
             <li key={option}>
-              <button onClick={() => onLeaveFeedback(option)}>{option}</button>
+              <StyledBtn onClick={() => onLeaveFeedback(option)}>
+                {option}
+              </StyledBtn>
             </li>
           );
         })}
-      </ul>
+      </StyledList>
     </div>
   );
 };

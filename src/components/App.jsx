@@ -2,6 +2,8 @@ import { FeedBack } from './FeedBack/FeedBackOptions';
 import React from 'react';
 import { Statistics } from './Statistics/Statistics';
 import { Section } from './Section/Section';
+import { Notification } from './Notification/Notification';
+import { StyledBox } from './App.styled';
 
 export class App extends React.Component {
   state = {
@@ -40,7 +42,9 @@ export class App extends React.Component {
   render() {
     const totalPositivePerc = this.countPositiveFeedbackPercentage();
     const totalFeedback = this.countTotalFeedback();
+    const { good, neutral, bad } = this.state;
     const feedback = ['good', 'neutral', 'bad'];
+    const statsValue = totalFeedback > 0;
     return (
       <div
         style={{
@@ -52,18 +56,27 @@ export class App extends React.Component {
           color: '#010101',
         }}
       >
-        <Section title="Please leave feedback">
-          <FeedBack onLeaveFeedback={this.onLeaveFeedback} options={feedback} />
-        </Section>
-        <Section title="Statistics">
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={totalFeedback}
-            positivePercentage={totalPositivePerc}
-          />
-        </Section>
+        <StyledBox>
+          <Section title="Please leave feedback">
+            <FeedBack
+              onLeaveFeedback={this.onLeaveFeedback}
+              options={feedback}
+            />
+          </Section>
+          <Section title="Statistics">
+            {statsValue ? (
+              <Statistics
+                good={good}
+                neutral={neutral}
+                bad={bad}
+                total={totalFeedback}
+                positivePercentage={totalPositivePerc}
+              />
+            ) : (
+              <Notification message="There is no feedback" />
+            )}
+          </Section>
+        </StyledBox>
       </div>
     );
   }
