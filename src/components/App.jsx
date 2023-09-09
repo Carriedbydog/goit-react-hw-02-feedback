@@ -52,23 +52,18 @@ export class App extends React.Component {
           color: '#010101',
         }}
       >
-        <div>
-          <Section title="Please leave feedback">
-            <FeedBack
-              onLeaveFeedback={this.onLeaveFeedback}
-              options={feedback}
-            />
-          </Section>
-          <Section title='Statistics'>
-<Statistics
+        <Section title="Please leave feedback">
+          <FeedBack onLeaveFeedback={this.onLeaveFeedback} options={feedback} />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
             good={this.state.good}
             neutral={this.state.neutral}
             bad={this.state.bad}
             total={totalFeedback}
-            totalPositivePercentage={totalPositivePerc}
+            positivePercentage={totalPositivePerc}
           />
-          </Section>
-        </div>
+        </Section>
       </div>
     );
   }
